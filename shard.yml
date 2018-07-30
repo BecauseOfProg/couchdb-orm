@@ -1,0 +1,13 @@
+name: couchdb-orm
+version: 0.1.0
+
+authors:
+  - Whaxion <whaxion@gmail.com>
+
+dependencies:
+  couchdb:
+    github: TechMagister/couchdb.cr
+
+crystal: 0.25.1
+
+license: MIT
