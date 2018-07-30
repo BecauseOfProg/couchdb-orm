@@ -1,6 +1,7 @@
 # couchdb-orm
+[![Build Status](https://api.travis-ci.org/Whaxion/couchdb-orm.svg?branch=master)](https://travis-ci.org/Whaxion/couchdb-orm)
 
-An simple CouchDB ORM based on [TechMagister CouchDB Client](https://github.com/TechMagister/couchdb.cr)
+A simple CouchDB ORM based on [TechMagister CouchDB Client](https://github.com/TechMagister/couchdb.cr)
 
 ## Installation
 
