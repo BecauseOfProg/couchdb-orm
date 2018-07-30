@@ -1,14 +1,26 @@
 module CouchDB::ORM
-
+  # Model class, base of whole this shit
+  # To create a model class
+  # ```require "couchdb-orm"
+  #
+  #CouchDB::ORM::Client.get("http://127.0.0.1:5984") # Mandatory, used everywhere to save, update, destroy
+  #
+  #class Animal < CouchDB::ORM::Model
+  #
+  #  fields(
+  #    race: String, # name: type
+  #    age: Int32
+  #  )
+  #
+  #end```
   class Model
-
     @id : String?
     @rev : String?
     getter id, rev
 
     macro fields(**fields)
       {% fields_names = [] of String %}
-      {% for k,v in fields %}
+      {% for k, v in fields %}
         property {{k}} : {{v}}? # Set property to have getter and setter
         {% fields_names << k.symbolize %}
       {% end %}
@@ -42,8 +54,8 @@ module CouchDB::ORM
         {% end %}
         @id = id
       end
-      private def fields_values() : Hash(Symbol, {% for k,v in fields %}{{v}}|{% end %}String|Nil)
-        values = {} of Symbol => ({% for k,v in fields %}{{v}}|{% end %}Nil)
+      private def fields_values() : Hash(Symbol, {% for k, v in fields %}{{v}}|{% end %}String|Nil)
+        values = {} of Symbol => ({% for k, v in fields %}{{v}}|{% end %}Nil)
         {% for k, v in fields %}
           values[:{{k}}] = @{{k}}
         {% end %}
@@ -54,7 +66,7 @@ module CouchDB::ORM
       end
       def from_json(json : Hash(String, JSON::Any))
         json.each do |k,v|
-          {% for k,v in fields %}
+          {% for k, v in fields %}
             if k == "{{k}}"
               {% if v.symbolize == :String %}
                 @{{k}} = v.as_s?
@@ -79,7 +91,7 @@ module CouchDB::ORM
       end
       def get() : self
         updated = self.class.get(id.as(String)).as(Animal)
-        {% for k,v in fields %}
+        {% for k, v in fields %}
           @{{k}} = updated.{{k}}
         {% end %}
         @rev = updated.rev
@@ -94,7 +106,7 @@ module CouchDB::ORM
 
     # Save in database
     # Should return true
-    def save() : Bool
+    def save : Bool
       client = Client.get.as(CouchDB::Client)
       if client
         if id
@@ -113,7 +125,7 @@ module CouchDB::ORM
     # Destroy from database
     # Var not destroyed
     # Should return true
-    def destroy() : Bool
+    def destroy : Bool
       client = Client.get.as(CouchDB::Client)
       if client
         resp = client.delete_document(database, id, rev)
@@ -161,7 +173,7 @@ module CouchDB::ORM
     # Create database
     # Only first time
     # Should return true
-    def self.create_database() : Bool
+    def self.create_database : Bool
       client = Client.get.as(CouchDB::Client)
       if client
         resp = client.create_database(self.database)
@@ -173,7 +185,7 @@ module CouchDB::ORM
     # Destroy database
     # Caution data destroyed
     # Should return true
-    def self.destroy_database() : Bool
+    def self.destroy_database : Bool
       client = Client.get.as(CouchDB::Client)
       if client
         resp = client.delete_database(self.database)
@@ -181,6 +193,5 @@ module CouchDB::ORM
       end
       false
     end
-
   end
 end

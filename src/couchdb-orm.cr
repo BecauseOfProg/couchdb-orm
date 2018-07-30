@@ -3,7 +3,6 @@ require "./couchdb-orm/*"
 
 # An simple CouchDB ORM
 module CouchDB::ORM
-
   class Client
     @@client : CouchDB::Client? = nil
 
@@ -16,6 +15,5 @@ module CouchDB::ORM
       end
       @@client
     end
-
   end
 end
