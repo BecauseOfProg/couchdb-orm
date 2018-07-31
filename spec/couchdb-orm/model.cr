@@ -73,6 +73,10 @@ describe CouchDB::ORM do
           animal2.as(Animal).age.should eq animal.age
         end
       end
+
+      it "should not get" do
+        Animal.get("").should be_nil
+      end
     end
 
     describe "#get_by" do
@@ -87,12 +91,22 @@ describe CouchDB::ORM do
           animals.first.age.should eq animal.age
         end
       end
+
+      it "should not get" do
+        animals = Animal.get_by(:race, "")
+        animals.class.should eq Array(Animal)
+        animals.size.should eq 0
+      end
     end
 
     describe "#destroy" do
 
       it "should destroy" do
         animal.destroy.should be_true
+      end
+
+      it "should not destroy" do
+        Animal.new.destroy.should be_false
       end
 
     end

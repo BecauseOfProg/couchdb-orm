@@ -145,8 +145,11 @@ module CouchDB::ORM
       if client
         query = CouchDB::FindQuery.from_json "{\"selector\": { \"_id\": {\"$eq\": \"" + id + "\"} } }"
         resp = client.find_document(database, query)
-        model = self.new
-        model.from_json(resp.docs.as(Array(JSON::Any)).first.as_h)
+        resp = resp.docs.as(Array(JSON::Any))
+        if resp && resp.size > 0
+          model = self.new
+          model.from_json(resp.first.as_h)
+        end
         return model
       end
     end
@@ -160,10 +163,12 @@ module CouchDB::ORM
         if get_fields.includes?(name)
           query = CouchDB::FindQuery.from_json "{\"selector\": { \"" + name.to_s + "\": {\"$eq\": \"" + value + "\"} } }"
           resp = client.find_document(database, query)
-          resp.docs.as(Array(JSON::Any)).each do |v|
-            model = self.new
-            model.from_json(v.as_h)
-            models << model
+          if resp.docs
+            resp.docs.as(Array(JSON::Any)).each do |v|
+              model = self.new
+              model.from_json(v.as_h)
+              models << model
+            end
           end
         end
       end
