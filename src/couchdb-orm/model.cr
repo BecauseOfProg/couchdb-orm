@@ -145,12 +145,14 @@ module CouchDB::ORM
       if client
         query = CouchDB::FindQuery.from_json "{\"selector\": { \"_id\": {\"$eq\": \"" + id + "\"} } }"
         resp = client.find_document(database, query)
-        resp = resp.docs.as(Array(JSON::Any))
-        if resp && resp.size > 0
-          model = self.new
-          model.from_json(resp.first.as_h)
+        if resp.docs
+          resp = resp.docs.as(Array(JSON::Any))
+          if resp && resp.size > 0
+            model = self.new
+            model.from_json(resp.first.as_h)
+          end
+          return model
         end
-        return model
       end
     end
 
