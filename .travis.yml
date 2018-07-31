@@ -1,3 +1,10 @@
 language: crystal
+os: linux
+dist: trusty
 services:
   - couchdb
+before_install:
+  - echo "deb https://apache.bintray.com/couchdb-deb trusty main" | sudo tee -a /etc/apt/sources.list
+  - curl -L https://couchdb.apache.org/repo/bintray-pubkey.asc | sudo apt-key add -
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq couchdb
