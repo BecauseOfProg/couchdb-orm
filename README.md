@@ -13,6 +13,10 @@ dependencies:
     github: Whaxion/couchdb-orm
 ```
 
+## Requirements
+- CouchDB 2.x.x (Tested on CouchDB 2.1.2)
+- Crystal 0.25.x (Tested on Crystal 0.25.1)
+
 ## Usage
 An example explain better than a long text, so
 
