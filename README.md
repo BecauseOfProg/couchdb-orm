@@ -1,5 +1,5 @@
 # couchdb-orm
-[![Build Status](https://api.travis-ci.org/Whaxion/couchdb-orm.svg?branch=master)](https://travis-ci.org/Whaxion/couchdb-orm)
+[![Build Status](https://api.travis-ci.org/BecauseOfProg/couchdb-orm.svg?branch=master)](https://travis-ci.org/BecauseOfProg/couchdb-orm)
 
 A simple CouchDB ORM based on [TechMagister CouchDB Client](https://github.com/TechMagister/couchdb.cr)
 
@@ -10,7 +10,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   couchdb-orm:
-    github: Whaxion/couchdb-orm
+    github: BecauseOfProg/couchdb-orm
 ```
 
 ## Requirements
@@ -52,7 +52,7 @@ Animal.destroy_database # Destroy database, caution all data is deleted
 
 ## Contributing
 
-1. Fork it (<https://github.com/Whaxion/couchdb-orm/fork>)
+1. Fork it (<https://github.com/BecauseOfProg/couchdb-orm/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
