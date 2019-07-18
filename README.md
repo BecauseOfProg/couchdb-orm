@@ -1,6 +1,8 @@
 # couchdb-orm
 [![Build Status](https://api.travis-ci.org/BecauseOfProg/couchdb-orm.svg?branch=master)](https://travis-ci.org/BecauseOfProg/couchdb-orm)
 
+⚠ Because I don't use CouchDB anymore this project is DISCONTINUED ⚠
+
 A simple CouchDB ORM based on [TechMagister CouchDB Client](https://github.com/TechMagister/couchdb.cr)
 
 ## Installation
